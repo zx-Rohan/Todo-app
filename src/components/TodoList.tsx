@@ -1,9 +1,9 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../store";
+import { RootState, AppDispatch } from "../store/index";
 import { deleteTodo, toggleTodo } from "../store/todoSlice";
-import { Trash2 } from "lucide-react"; // if you’re using lucide-react
+import { Trash2 } from "lucide-react";
 
 interface Props {
   filter: "all" | "active" | "completed";
@@ -20,15 +20,17 @@ export default function TodoList({ filter }: Props) {
   });
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-2 max-h-[400px] overflow-y-auto pr-2">
       {filteredTodos.length === 0 && (
-        <p className="text-center text-gray-400 italic">No tasks here 🎉</p>
+        <p className="text-center text-gray-400 italic py-4">
+          No tasks here
+        </p>
       )}
 
       {filteredTodos.map((todo) => (
         <li
           key={todo.id}
-          className="flex justify-between items-center bg-white border border-gray-200 rounded-md px-4 py-2"
+          className="flex justify-between items-center py-2"
         >
           <div className="flex items-center gap-3">
             <input
@@ -39,24 +41,18 @@ export default function TodoList({ filter }: Props) {
             />
             <span
               className={`text-lg ${
-                todo.completed
-                  ? "line-through text-gray-400"
-                  : "text-gray-800"
+                todo.completed ? " line-through text-gray-400" : "text-gray-800"
               }`}
             >
               {todo.text}
             </span>
           </div>
-
-          {/* Show delete only for completed tasks */}
-          {todo.completed && (
-            <button
+            {!todo?.completed && <button
               onClick={() => dispatch(deleteTodo(todo.id))}
-              className="text-red-500 hover:text-red-700"
+              className="text-pink-400 hover:text-red-500 transition"
             >
               <Trash2 size={18} />
-            </button>
-          )}
+            </button>}
         </li>
       ))}
     </ul>

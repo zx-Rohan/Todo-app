@@ -15,7 +15,7 @@ export default function TodoSidebar({ onChange }: Props) {
   };
 
   return (
-    <aside className="w-48 bg-white rounded-l-xl border-r border-gray-200 flex flex-col">
+    <main className="w-48 bg-white rounded-l-xl border-r border-gray-200 flex flex-col-3">
       <nav className="flex flex-col gap-6 p-6">
         {["all", "active", "completed"].map((f) => (
           <button
@@ -31,6 +31,6 @@ export default function TodoSidebar({ onChange }: Props) {
           </button>
         ))}
       </nav>
-    </aside>
+    </main>
   );
 }
