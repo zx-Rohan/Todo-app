@@ -1,15 +1,12 @@
-"use client";
-
-import "./globals.css";
-import { ReactNode } from "react";
-import { Provider } from "react-redux";
-import { store } from "../store/index";
+import "@/styles/globals.css";
+import type { ReactNode } from "react";
+import AppLayout from "@/components/layout/AppLayout";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Provider store={store}>{children}</Provider>
+        <AppLayout>{children}</AppLayout>
       </body>
     </html>
   );

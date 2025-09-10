@@ -1,17 +1,8 @@
 import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
-
-interface Todo {
-  id: string;
-  text: string;
-  completed: boolean;
-}
-
-interface TodoState {
-  todos: Todo[];
-}
+import { TodoState } from "@/types";
 
 const initialState: TodoState = {
-  todos: [], 
+  todos: [],
 };
 
 const todoSlice = createSlice({
@@ -26,14 +17,17 @@ const todoSlice = createSlice({
       });
     },
     toggleTodo: (state, action: PayloadAction<string>) => {
-      const todo = state.todos.find((t) => t.id === action.payload);
-      if (todo) todo.completed = !todo.completed;
+      const t = state.todos.find((x) => x.id === action.payload);
+      if (t) t.completed = !t.completed;
     },
     deleteTodo: (state, action: PayloadAction<string>) => {
-      state.todos = state.todos.filter((t) => t.id !== action.payload);
+      state.todos = state.todos.filter((x) => x.id !== action.payload);
+    },
+    clearCompleted: (state) => {
+      state.todos = state.todos.filter((x) => !x.completed);
     },
   },
 });
 
-export const { addTodo, toggleTodo, deleteTodo } = todoSlice.actions;
+export const { addTodo, toggleTodo, deleteTodo, clearCompleted } = todoSlice.actions;
 export default todoSlice.reducer;
